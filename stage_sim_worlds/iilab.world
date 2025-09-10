@@ -1,0 +1,50 @@
+include "models/map.inc"
+include "models/robot.inc"
+
+name "stage_simulator"
+
+# simulation timestep in milliseconds
+interval_sim 100
+
+# set the resolution of the underlying raytrace model in meters
+resolution 0.01
+
+# the number of worker threads to spawn. Some models can be updated in parallel (e.g. laser, ranger), and running 2 or more threads here may make the simulation run faster
+threads 4
+
+# Visualization window definition
+window (
+  # size of the window in pixels
+  size [ 925 1016 ]
+
+  # location of the center of the window in world coordinates (meters)
+  center [ 7.615 -1.066 ]
+
+  # angle relative to straight up, angle of rotation (degrees), rotate [ <pitch:float> <yaw:float> ]
+  rotate [ 0.000  270.500 ]
+
+  # ratio of world to pixel coordinates (window zoom)
+  scale 42.872
+
+  # GUI options (1=on 0=off)
+  show_data 1
+  show_blocks 1
+  show_grid 0
+  show_clock 1
+  show_trailarrows 1
+)
+
+# Map definition
+map (
+  name "map"
+  bitmap "maps/iilab.pgm"
+  size [ 38.000 23.000 1.000 ]
+  pose [ 0.000 0.000 0.000 0.000 ]
+)
+
+# Spawn a robot
+robot (
+  name "robot0"
+  color "blue"
+  pose [ 0.000 0.000 0.000 0.000 ]
+)
