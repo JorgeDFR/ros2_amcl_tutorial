@@ -1,0 +1,42 @@
+services:
+  ros2_stage:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ros2_stage:humble
+    container_name: ros2_amcl_tutorial
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /dev/dri:/dev/dri
+      - ../launch_files:/home/user/ros2_amcl_tutorial/launch_files
+      - ../stage_sim_worlds:/home/user/ros2_amcl_tutorial/stage_sim_worlds
+    environment:
+      - color_prompt=no
+      - DISPLAY=${DISPLAY}
+    network_mode: host
+    tty: true
+    stdin_open: true
+
+  # ros2_stage_nvidia:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   image: ros2_stage:humble
+  #   container_name: ros2_amcl_tutorial
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - /tmp/.X11-unix:/tmp/.X11-unix
+  #     - /dev/dri:/dev/dri
+  #     - ../launch_files:/home/user/ros2_amcl_tutorial/launch_files
+  #     - ../stage_sim_worlds:/home/user/ros2_amcl_tutorial/stage_sim_worlds
+  #   environment:
+  #     - color_prompt=no
+  #     - DISPLAY=${DISPLAY}
+  #     - NVIDIA_VISIBLE_DEVICES=all
+  #     - NVIDIA_DRIVER_CAPABILITIES=all
+  #   network_mode: host
+  #   tty: true
+  #   stdin_open: true
+  #   runtime: nvidia
+  #   profiles: ["nvidia"]
