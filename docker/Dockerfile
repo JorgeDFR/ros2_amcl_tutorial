@@ -7,7 +7,7 @@ ENV USER=user
 ENV HOME=/home/$USER
 
 # Install additional packages
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
   sudo \
   curl \
   wget \
@@ -29,7 +29,7 @@ RUN useradd -m -d $HOME -s /bin/bash $USER && \
 
 # Stage simulator
 USER root
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
   build-essential \
   cmake \
   libjpeg-dev \
@@ -53,7 +53,7 @@ RUN cd $HOME/simulator/Stage/build && \
 
 # ROS packages
 USER root
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
   ros-humble-nav2-map-server \
   ros-humble-nav2-amcl \
   ros-humble-nav2-rviz-plugins \
