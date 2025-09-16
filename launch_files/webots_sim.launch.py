@@ -18,7 +18,7 @@ def generate_launch_description():
   package_dir = get_package_share_directory('webots_ros2_turtlebot')
 
   world = LaunchConfiguration('world',
-    default=os.path.join(dirname, '../webots_sim_worlds/iilab.wbt'))
+    default=os.path.join(dirname, '../webots_sim_worlds/custom_maps/iilab.wbt'))
   mode = LaunchConfiguration('mode', default='realtime')
   use_sim_time = LaunchConfiguration('use_sim_time', default=True)
 
