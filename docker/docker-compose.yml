@@ -1,16 +1,16 @@
 services:
-  ros2_stage:
+  ros2_webots:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ros2_stage:humble
+    image: ros2_webots:humble
     container_name: ros2_amcl_tutorial
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /dev/dri:/dev/dri
       - ../launch_files:/home/user/ros2_amcl_tutorial/launch_files
-      - ../stage_sim_worlds:/home/user/ros2_amcl_tutorial/stage_sim_worlds
+      - ../webots_sim_worlds:/home/user/ros2_amcl_tutorial/webots_sim_worlds
     environment:
       - color_prompt=no
       - DISPLAY=${DISPLAY}
@@ -18,18 +18,18 @@ services:
     tty: true
     stdin_open: true
 
-  # ros2_stage_nvidia:
+  # ros2_webots_nvidia:
   #   build:
   #     context: .
   #     dockerfile: Dockerfile
-  #   image: ros2_stage:humble
+  #   image: ros2_webots:humble
   #   container_name: ros2_amcl_tutorial
   #   volumes:
   #     - /etc/localtime:/etc/localtime:ro
   #     - /tmp/.X11-unix:/tmp/.X11-unix
   #     - /dev/dri:/dev/dri
   #     - ../launch_files:/home/user/ros2_amcl_tutorial/launch_files
-  #     - ../stage_sim_worlds:/home/user/ros2_amcl_tutorial/stage_sim_worlds
+  #     - ../webots_sim_worlds:/home/user/ros2_amcl_tutorial/webots_sim_worlds
   #   environment:
   #     - color_prompt=no
   #     - DISPLAY=${DISPLAY}
@@ -39,4 +39,3 @@ services:
   #   tty: true
   #   stdin_open: true
   #   runtime: nvidia
-  #   profiles: ["nvidia"]

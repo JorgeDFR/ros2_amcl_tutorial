@@ -21,50 +21,30 @@ RUN apt-get update && apt-get install -y \
   software-properties-common \
   && rm -rf /var/lib/apt/lists/*
 
-# Create user and home directory
-RUN useradd -m -d $HOME -s /bin/bash $USER && \
-  echo "$USER:$USER" | chpasswd && \
-  usermod -aG sudo $USER && \
-  echo "$USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+# Install Webots Simulator
+RUN apt-get update && \
+  wget -O /tmp/webots.deb https://github.com/cyberbotics/webots/releases/download/R2025a/webots_2025a_amd64.deb && \
+  dpkg -i /tmp/webots.deb || apt-get install -f -y && \
+  apt-get install -y ros-humble-webots-ros2 && \
+  rm -f /tmp/webots.deb && \
+  rm -rf /var/lib/apt/lists/*
 
-# Stage simulator
-USER root
-RUN apt-get update && apt-get install -y \
-  build-essential \
-  cmake \
-  libjpeg-dev \
-  libpng-dev \
-  libltdl-dev \
-  libfltk1.3-dev \
-  libglu1-mesa-dev \
-  && rm -rf /var/lib/apt/lists/*
-
-USER $USER
-RUN mkdir -p $HOME/simulator && cd $HOME/simulator && \
-  git clone https://github.com/sousarbarb/Stage.git && \
-  cd Stage && mkdir -p build && cd build && \
-  cmake -DCMAKE_BUILD_TYPE=Release .. && \
-  make -j$(nproc)
-
-USER root
-RUN cd $HOME/simulator/Stage/build && \
-  make install && \
-  ldconfig
+ENV WEBOTS_HOME=/usr/local/webots
 
 # ROS packages
-USER root
 RUN apt-get update && apt-get install -y \
   ros-humble-nav2-map-server \
   ros-humble-nav2-amcl \
   ros-humble-nav2-rviz-plugins \
   && rm -rf /var/lib/apt/lists/*
 
-USER $USER
-RUN mkdir -p $HOME/ros2_ws/src && cd $HOME/ros2_ws/src/ && \
-  git clone https://github.com/sousarbarb/stage_ros.git
+# Create user and home directory
+RUN useradd -m -d $HOME -s /bin/bash $USER && \
+  echo "$USER:$USER" | chpasswd && \
+  usermod -aG sudo $USER && \
+  echo "$USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> $HOME/.bashrc && \
-    echo "source $HOME/ros2_ws/install/setup.bash" >> $HOME/.bashrc && \
     echo "export ROS_LOCALHOST_ONLY=1" >> $HOME/.bashrc
 
 # Initialize rosdep
