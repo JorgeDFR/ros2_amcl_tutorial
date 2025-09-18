@@ -51,7 +51,7 @@ RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> $HOME/.bashrc && \
 USER root
 RUN rosdep init || true
 USER $USER
-RUN rosdep update
+RUN rosdep update --rosdistro $ROS_DISTRO
 
 # Set working directory to home and default command
 USER $USER

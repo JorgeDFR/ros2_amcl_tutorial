@@ -85,10 +85,10 @@ docker exec -it ros2_amcl_tutorial bash
 
 ## Running the Simulation
 
-After completing the setup you can start the simulation by navigating to the `launch_files` directory and launching the tutorial:
+After completing the setup you can start the simulation by navigating to the `launch` files directory and launching the tutorial:
 
 ```bash
-cd ros2_amcl_tutorial/launch_files
+cd ros2_amcl_tutorial/launch
 ros2 launch run.launch.py
 ```
 
@@ -129,11 +129,11 @@ This will publish velocity commands to the robot in the Webots simulation.  allo
 
 ## Main Tutorial Files
 
-The main files used in the tutorial can be located inside the folder `launch_files`.
+The main files used in the tutorial can be located inside the folder `launch`.
 
 ### Launch file
 
-The launch file [run.launch.py](launch_files/run.launch.py) starts all the essential nodes for the tutorial:
+The launch file [run.launch.py](launch/run.launch.py) starts all the essential nodes for the tutorial:
 
 - **Webots Simulator**: Launches the simulation environment.
 - **Map Server**: Publishes the map for localization.
@@ -142,7 +142,7 @@ The launch file [run.launch.py](launch_files/run.launch.py) starts all the essen
 
 ### Configuration of the AMCL algorithm
 
-The parameters used in the AMCL algorithm can be found in the file [config.yaml](launch_files/config.yaml), including:
+The parameters used in the AMCL algorithm can be found in the file [config.yaml](launch/config.yaml), including:
 
 - **Frames and Topics**: Robot frames and sensor topics.
 - **Sensor Models**: Laser model settings and noise parameters.
@@ -165,7 +165,7 @@ This will give you the necessary background on the **Adaptive Monte Carlo Locali
 
 ### Parameters
 
-The parameters that control AMCL are defined in [config.yaml](launch_files/config.yaml).
+The parameters that control AMCL are defined in [config.yaml](launch/config.yaml).
 For detailed explanations of each parameter, see the [AMCL parameter documentation](https://docs.nav2.org/configuration/packages/configuring-amcl.html#parameters).
 
 ### What You See in RViz
@@ -181,18 +181,9 @@ RViz shows the main components of the localization process:
   - A **purple ellipse** represents the uncertainty in the robot’s *x,y* position.
   - A **yellow cone** represents the uncertainty in orientation.
 
-#### Map
-
-The map used in this tutorial is stored in [iilab.png](webots_sim_worlds/iilab.png). Since it is simply a PNG image, you can easily change the map by editing the image (e.g., drawing black lines to represent obstacles).
-
-⚠️ Keep in mind: modifying the PNG only changes the map representation used for localization, **not** the simulation world in Webots.
-
-#### Estimated Pose with Covariance
-
 The ellipse and cone of the estimated pose made by AMCL are a visualization of the probability distribution of the robot’s pose:
 - A **smaller ellipse/cone** means AMCL is more confident about the position/orientation.
 - A **larger ellipse/cone** means there is more uncertainty.
-
 
 ---
 
@@ -217,7 +208,7 @@ Each challenge below is independent — you can try them in any order.
 
 ### 2. Experiment with Motion Models
 
-- In [config.yaml](launch_files/config.yaml), change the motion model from
+- In [config.yaml](launch/config.yaml), change the motion model from
   `nav2_amcl::DifferentialMotionModel` to `nav2_amcl::OmniMotionModel`.
 - Restart the simulation and observe how the particle cloud evolves.
 

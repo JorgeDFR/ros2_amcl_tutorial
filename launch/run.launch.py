@@ -8,8 +8,8 @@ def generate_launch_description():
   dirname, _ = os.path.split(os.path.realpath(__file__))
   params = os.path.join(dirname, 'config.yaml')
   rviz_file = os.path.join(dirname, 'visualization.rviz')
-  world_file = os.path.join(dirname, '../webots_sim_worlds/custom_maps/iilab.wbt')
-  map_file = os.path.join(dirname, '../webots_sim_worlds/custom_maps/iilab_config.yaml')
+  world_file = os.path.join(dirname, '../webots/worlds/complete_apartment.wbt')
+  map_file = os.path.join(dirname, '../webots/maps/complete_apartment.yaml')
 
   ld = LaunchDescription()
 

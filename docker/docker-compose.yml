@@ -9,8 +9,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /dev/dri:/dev/dri
-      - ../launch_files:/home/user/ros2_amcl_tutorial/launch_files
-      - ../webots_sim_worlds:/home/user/ros2_amcl_tutorial/webots_sim_worlds
+      - ../launch:/home/user/ros2_amcl_tutorial/launch
+      - ../webots:/home/user/ros2_amcl_tutorial/webots
     environment:
       - color_prompt=no
       - DISPLAY=${DISPLAY}
@@ -28,8 +28,8 @@ services:
   #     - /etc/localtime:/etc/localtime:ro
   #     - /tmp/.X11-unix:/tmp/.X11-unix
   #     - /dev/dri:/dev/dri
-  #     - ../launch_files:/home/user/ros2_amcl_tutorial/launch_files
-  #     - ../webots_sim_worlds:/home/user/ros2_amcl_tutorial/webots_sim_worlds
+  #     - ../launch:/home/user/ros2_amcl_tutorial/launch
+  #     - ../webots:/home/user/ros2_amcl_tutorial/webots
   #   environment:
   #     - color_prompt=no
   #     - DISPLAY=${DISPLAY}

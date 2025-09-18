@@ -1,0 +1,6 @@
+image: break_room.pgm
+resolution: 0.05
+origin: [-6.44, -3.31, 0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.25
