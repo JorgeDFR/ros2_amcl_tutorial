@@ -101,18 +101,18 @@ If everything is set up correctly, two main windows should appear on your screen
 The first window is the **Webots Simulator**, which displays the robot and the environment in 3D. This is where the actual simulation runs, showing the robot’s movement and interactions with the world.
 
 **Basic Controls:**
-- **Scroll wheel + drag:** Pan the camera view.
+- **Left click + drag:** Move the view around.
+- **Right click + drag:** Rotate the camera view.
 - **Scroll up/down:** Zoom in and out.
-- **Left click + drag:** Rotate the camera around the scene.
 
 ### RViz Window
 
 The second window is **RViz**, the ROS visualization tool. RViz displays sensor data, robot pose, and other relevant information computed by the AMCL algorithm, such as particle distributions and estimated positions.
 
 **Basic Controls:**
-- **Scroll wheel + drag:** Move the view around.
-- **Scroll up/down:** Zoom in and out.
 - **Left click + drag:** Rotate the camera view.
+- **Scroll up/down:** Zoom in and out.
+- **Scroll wheel + drag:** Move the view around.
 
 
 ### Controlling the Robot
