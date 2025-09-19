@@ -55,10 +55,10 @@ def generate_launch_description():
 
   # Rviz
   rviz = Node(
-      package='rviz2',
-      executable='rviz2',
-      name='rviz2',
-      arguments=['-d', rviz_file, '--ros-args', '--log-level', 'INFO'],
+    package='rviz2',
+    executable='rviz2',
+    name='rviz2',
+    arguments=['-d', rviz_file, '--ros-args', '--log-level', 'INFO'],
   )
   ld.add_action(rviz)
 

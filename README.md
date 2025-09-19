@@ -69,6 +69,7 @@ It handles container setup and display forwarding automatically.
 
 To start the docker container run:
 ```bash
+xhost +local:docker
 docker compose up -d
 ```
 
