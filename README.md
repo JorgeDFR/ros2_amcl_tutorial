@@ -8,8 +8,6 @@ If you are new to these tools, check the following resources first:
 - [ROS 2 Documentation](https://docs.ros.org/en/humble/index.html)
 - [Webots Documentation](https://cyberbotics.com/doc/guide/index)
 
----
-
 ## Setup and Prerequisites
 
 To simplify the setup process, this tutorial provides two options:
@@ -18,8 +16,6 @@ To simplify the setup process, this tutorial provides two options:
 2. **Docker Container with docker compose**
 
 If you prefer to install everything directly on your own system, follow the instructions in [manual setup](/docs/setup.md).
-
----
 
 ### Option 1: Using the Virtual Machine
 
@@ -37,8 +33,6 @@ Once downloaded, you can import the template into your preferred hypervisor (e.g
 cd ~/ros2_amcl_tutorial
 git pull
 ```
-
----
 
 ### Option 2: Using the Docker Container
 
@@ -82,8 +76,6 @@ docker exec -it ros2_amcl_tutorial bash
 > By default, the container started above does **not** use GPU acceleration. This ensures compatibility across most machines.
 > If your system has an NVIDIA GPU and the necessary drivers installed, you can uncomment the `ros2_webots_nvidia` service in the `docker-compose.yml` file and comment out the default `ros2_webots` service. This will enable GPU acceleration, which can significantly improve Webots simulation performance.
 
----
-
 ## Running the Simulation
 
 After completing the setup you can start the simulation by navigating to the `launch` files directory and launching the tutorial:
@@ -126,8 +118,6 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
 This will publish velocity commands to the robot in the Webots simulation.  allowing you to move the robot in the Webots simulation and test the AMCL localization in real-time.
 
----
-
 ## Main Tutorial Files
 
 The main files used in the tutorial can be located inside the folder `launch`.
@@ -153,9 +143,7 @@ The parameters used in the AMCL algorithm can be found in the file [config.yaml]
 You can modify these parameters to observe their effect on localization performance.
 To do so, change the content of the file and them run the simulation once again.
 
----
-
-### Understanding AMCL in Practice
+## Understanding AMCL in Practice
 
 Before starting the challenges, it is important to review what AMCL does, what its parameters mean, and how its results are visualized in RViz.
 
@@ -186,8 +174,6 @@ The ellipse and cone of the estimated pose made by AMCL are a visualization of t
 - A **smaller ellipse/cone** means AMCL is more confident about the position/orientation.
 - A **larger ellipse/cone** means there is more uncertainty.
 
----
-
 ## Challenges
 
 Now that you know how to run the simulation and interpret the results in RViz, it’s time to experiment.
@@ -204,8 +190,6 @@ Each challenge below is independent — you can try them in any order.
   - A **non-symmetric area** of the map (e.g., with unique features).
 
 ![Set Initial Pose](docs/images/set_initial_pose.gif)
-
----
 
 ### 2. Experiment with Motion Models
 
@@ -227,8 +211,6 @@ alpha3: 0.2
 alpha4: 0.2
 alpha5: 0.2
 ```
-
----
 
 ### 3. TODO
 

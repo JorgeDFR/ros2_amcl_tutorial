@@ -7,15 +7,12 @@ from launch.actions import RegisterEventHandler, EmitEvent
 from launch.event_handlers import OnProcessExit
 from launch.events import Shutdown
 
-from ament_index_python.packages import get_package_share_directory
 from webots_ros2_driver.webots_launcher import WebotsLauncher
 from webots_ros2_driver.webots_controller import WebotsController
 from webots_ros2_driver.wait_for_controller_connection import WaitForControllerConnection
 
 def generate_launch_description():
   dirname, _ = os.path.split(os.path.realpath(__file__))
-
-  package_dir = get_package_share_directory('webots_ros2_turtlebot')
 
   world = LaunchConfiguration('world',
     default=os.path.join(dirname, '../webots/worlds/complete_apartment.wbt'))
@@ -72,12 +69,12 @@ def generate_launch_description():
   )
   ros_control_spawners = [diffdrive_controller_spawner, joint_state_broadcaster_spawner]
 
-  # TurtleBot Driver Node
-  robot_description_path = os.path.join(package_dir, 'resource', 'turtlebot_webots.urdf')
-  ros2_control_params = os.path.join(package_dir, 'resource', 'ros2control.yml')
+  # UGV Rover Driver Node
+  robot_description_path = os.path.join(dirname, '../webots/robot', 'ugv_rover_webots.urdf')
+  ros2_control_params = os.path.join(dirname, '../webots/robot', 'ros2control.yml')
   mappings = [('/diffdrive_controller/cmd_vel_unstamped', '/cmd_vel'), ('/diffdrive_controller/odom', '/odom')]
-  turtlebot_driver = WebotsController(
-    robot_name='TurtleBot3Burger',
+  ugv_rover_driver = WebotsController(
+    robot_name='UGVRover',
     parameters=[
       {'robot_description': robot_description_path,
         'use_sim_time': use_sim_time,
@@ -87,12 +84,11 @@ def generate_launch_description():
     remappings=mappings,
     respawn=True
   )
-  ld.add_action(turtlebot_driver)
+  ld.add_action(ugv_rover_driver)
 
   # Wait for the simulation to be ready to start navigation nodes
-  os.environ['TURTLEBOT3_MODEL'] = 'burger'
   waiting_nodes = WaitForControllerConnection(
-    target_driver=turtlebot_driver,
+    target_driver=ugv_rover_driver,
     nodes_to_start=ros_control_spawners
   )
   ld.add_action(waiting_nodes)

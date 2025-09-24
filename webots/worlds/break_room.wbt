@@ -23,8 +23,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/computers/protos/Monitor.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/computers/protos/Keyboard.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/chairs/protos/OfficeChair.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/robotis/turtlebot/protos/TurtleBot3Burger.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/devices/robotis/protos/RobotisLds01.proto"
+
+EXTERNPROTO "../robot/UGVRover.proto"
 
 WorldInfo {
   info [
@@ -37,9 +37,9 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation 0.21496041655439269 0.5260439379279227 -0.8228425090404882 0.9746995137069512
-  position -4.187254870694 7.543789000380202 5.70059802037687
-  follow "TurtleBot3Burger:LDS-01"
+  orientation 0.18849436554501972 0.5954240708134999 -0.7809865876272528 0.829358954496772
+  position -4.908121969974157 5.735660469650572 4.618776653180542
+  follow "UGVRover"
 }
 TexturedBackground {
   texture "entrance_hall"
@@ -49,22 +49,11 @@ TexturedBackground {
 TexturedBackgroundLight {
   texture "entrance_hall"
 }
-TurtleBot3Burger {
+UGVRover {
+  translation 0 0 0.08
   controller "<extern>"
   controllerArgs [
     ""
-  ]
-  extensionSlot [
-    Solid {
-      name "imu_link"
-    }
-    GPS {
-    }
-    InertialUnit {
-      name "inertial_unit"
-    }
-    RobotisLds01 {
-    }
   ]
 }
 Floor {

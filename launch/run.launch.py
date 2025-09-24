@@ -16,7 +16,7 @@ def generate_launch_description():
   # Webots Simulator
   webots_simulator = IncludeLaunchDescription(
     PythonLaunchDescriptionSource(os.path.join(dirname, 'webots_sim.launch.py')),
-    launch_arguments={'world_file': world_file}.items()
+    launch_arguments={'world': world_file}.items()
   )
   ld.add_action(webots_simulator)
 

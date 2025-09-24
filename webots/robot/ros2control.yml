@@ -1,0 +1,36 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50
+
+    diffdrive_controller:
+      type: diff_drive_controller/DiffDriveController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+diffdrive_controller:
+  ros__parameters:
+    # left_wheel_names: ["left up wheel motor", "left down wheel motor"]
+    # right_wheel_names: ["right up wheel motor", "right down wheel motor"]
+
+    left_wheel_names: ["left up wheel motor"]
+    right_wheel_names: ["right up wheel motor"]
+
+    wheel_separation: 0.174
+    wheel_radius: 0.04
+
+    wheel_separation_multiplier: 1.0
+    left_wheel_radius_multiplier: 1.0
+    right_wheel_radius_multiplier: 1.0
+
+    use_stamped_vel: false
+    odom_frame_id: odom
+    base_frame_id: base_link
+
+    publish_limited_velocity: true
+
+    linear.x.has_velocity_limits: true
+    linear.x.max_velocity: 0.5
+
+    angular.z.has_velocity_limits: true
+    angular.z.max_velocity: 0.5

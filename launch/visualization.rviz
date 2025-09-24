@@ -5,8 +5,10 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /AMCL1
+        - /LiDAR1
+        - /Depth Camera1
       Splitter Ratio: 0.5
-    Tree Height: 307
+    Tree Height: 661
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -23,7 +25,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: Depth PointCloud
 Visualization Manager:
   Class: ""
   Displays:
@@ -71,8 +73,6 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        LDS-01:
-          Value: false
         accelerometer:
           Value: false
         base_footprint:
@@ -81,6 +81,10 @@ Visualization Manager:
           Value: false
         compass:
           Value: false
+        d500_lidar:
+          Value: true
+        depth_camera:
+          Value: true
         gps:
           Value: false
         gyro:
@@ -89,26 +93,24 @@ Visualization Manager:
           Value: false
         inertial_unit:
           Value: false
-        left wheel:
-          Value: false
-        lower:
-          Value: false
+        left_down_wheel:
+          Value: true
+        left_up_wheel:
+          Value: true
+        lidar:
+          Value: true
         map:
+          Value: true
+        oak_d_lite_camera_depth:
+          Value: true
+        oak_d_lite_camera_rgb:
           Value: true
         odom:
           Value: false
-        right wheel:
-          Value: false
-        screw0:
-          Value: false
-        screw1:
-          Value: false
-        screw2:
-          Value: false
-        screw3:
-          Value: false
-        solid:
-          Value: false
+        right_down_wheel:
+          Value: true
+        right_up_wheel:
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: false
@@ -118,25 +120,17 @@ Visualization Manager:
         map:
           odom:
             base_link:
-              LDS-01:
-                lower:
-                  {}
-                screw0:
-                  {}
-                screw1:
-                  {}
-                screw2:
-                  {}
-                screw3:
-                  {}
-                solid:
-                  {}
               accelerometer:
                 {}
               base_footprint:
                 {}
               compass:
                 {}
+              depth_camera:
+                oak_d_lite_camera_depth:
+                  {}
+                oak_d_lite_camera_rgb:
+                  {}
               gps:
                 {}
               gyro:
@@ -145,45 +139,18 @@ Visualization Manager:
                 {}
               inertial_unit:
                 {}
-              left wheel:
+              left_down_wheel:
                 {}
-              right wheel:
+              left_up_wheel:
+                {}
+              lidar:
+                d500_lidar:
+                  {}
+              right_down_wheel:
+                {}
+              right_up_wheel:
                 {}
       Update Interval: 0
-      Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 0.26660001277923584
-        Min Value: 0.26660001277923584
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz_default_plugins/LaserScan
-      Color: 246; 97; 81
-      Color Transformer: FlatColor
-      Decay Time: 0
-      Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 4096
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: LaserScan
-      Position Transformer: XYZ
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.029999999329447746
-      Style: Flat Squares
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /scan
-      Use Fixed Frame: true
-      Use rainbow: true
       Value: true
     - Class: rviz_common/Group
       Displays:
@@ -240,6 +207,96 @@ Visualization Manager:
           Value: true
       Enabled: true
       Name: AMCL
+    - Class: rviz_common/Group
+      Displays:
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 0.26660001277923584
+            Min Value: 0.26660001277923584
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz_default_plugins/LaserScan
+          Color: 246; 97; 81
+          Color Transformer: FlatColor
+          Decay Time: 0
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Max Intensity: 4096
+          Min Color: 0; 0; 0
+          Min Intensity: 0
+          Name: LaserScan
+          Position Transformer: XYZ
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.029999999329447746
+          Style: Flat Squares
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /scan
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
+      Enabled: true
+      Name: LiDAR
+    - Class: rviz_common/Group
+      Displays:
+        - Class: rviz_default_plugins/Image
+          Enabled: true
+          Max Value: 1
+          Median window: 5
+          Min Value: 0
+          Name: RGB Image
+          Normalize Range: true
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /depth_camera/rgb/image_color
+          Value: true
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz_default_plugins/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: Intensity
+          Decay Time: 0
+          Enabled: false
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Max Intensity: 4096
+          Min Color: 0; 0; 0
+          Min Intensity: 0
+          Name: Depth PointCloud
+          Position Transformer: XYZ
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.009999999776482582
+          Style: Flat Squares
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /depth_camera/depth/point_cloud
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: false
+      Enabled: false
+      Name: Depth Camera
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -295,7 +352,7 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 97.7781753540039
+      Scale: 97.513671875
       Target Frame: base_footprint
       Value: TopDownOrtho (rviz_default_plugins)
       X: -0.20779845118522644
@@ -307,7 +364,9 @@ Window Geometry:
   Height: 1016
   Hide Left Dock: true
   Hide Right Dock: true
-  QMainWindow State: 000000ff00000000fd0000000400000000000001560000035afc0200000007fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073000000003d0000035a000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f0000035efc0200000004fb0000001e0054006f006f006c002000500072006f0070006500720074006900650073000000003b000002b80000005c00fffffffb0000000a0056006900650077007300000002f9000000a0000000a000fffffffb0000001e0054006f006f006c002000500072006f0070006500720074006900650073000000013c0000025d0000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000039d0000003efc0100000002fb0000000800540069006d006501000000000000039d0000025300fffffffb0000000800540069006d006501000000000000045000000000000000000000039d0000035e00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001930000035afc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073000000003d0000035a000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001200520047004200200049006d0061006700650000000272000001250000002800ffffff000000010000010f0000035efc0200000004fb0000001e0054006f006f006c002000500072006f0070006500720074006900650073000000003b000002b80000005c00fffffffb0000000a0056006900650077007300000002f9000000a0000000a400fffffffb0000001e0054006f006f006c002000500072006f0070006500720074006900650073000000013c0000025d0000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000003100000003efc0100000002fb0000000800540069006d0065010000000000000310000002fb00fffffffb0000000800540069006d00650100000000000004500000000000000000000003100000035a00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  RGB Image:
+    collapsed: false
   Selection:
     collapsed: false
   Time:
@@ -316,6 +375,6 @@ Window Geometry:
     collapsed: true
   Views:
     collapsed: true
-  Width: 925
+  Width: 784
   X: 70
   Y: 27

@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<robot name="UGV Rover Webots">
+  <webots>
+    <device reference="d500_lidar" type="Lidar">
+      <ros>
+        <frameName>lidar</frameName>
+        <enabled>true</enabled>
+        <updateRate>10</updateRate>
+        <topicName>/scan</topicName>
+        <alwaysOn>false</alwaysOn>
+      </ros>
+    </device>
+
+    <device reference="oak_d_lite_camera_rgb" type="Camera">
+      <ros>
+        <frameName>depth_camera</frameName>
+        <enabled>true</enabled>
+        <updateRate>10</updateRate>
+        <topicName>/depth_camera/rgb</topicName>
+        <alwaysOn>false</alwaysOn>
+      </ros>
+    </device>
+    <device reference="oak_d_lite_camera_depth" type="RangeFinder">
+      <ros>
+        <frameName>depth_camera</frameName>
+        <enabled>true</enabled>
+        <updateRate>10</updateRate>
+        <topicName>/depth_camera/depth</topicName>
+        <alwaysOn>false</alwaysOn>
+      </ros>
+    </device>
+
+    <plugin type="webots_ros2_driver::Ros2IMU">
+      <enabled>true</enabled>
+      <updateRate>20</updateRate>
+      <topicName>/imu</topicName>
+      <alwaysOn>false</alwaysOn>
+      <frameName>imu_link</frameName>
+      <inertialUnitName>inertial_unit</inertialUnitName>
+      <gyroName>gyro</gyroName>
+      <accelerometerName>accelerometer</accelerometerName>
+    </plugin>
+
+    <plugin type="webots_ros2_control::Ros2Control"/>
+  </webots>
+
+  <ros2_control name="WebotsControl" type="system">
+    <hardware>
+      <plugin>webots_ros2_control::Ros2ControlSystem</plugin>
+    </hardware>
+    <joint name="left up wheel motor">
+      <state_interface name="position"/>
+      <command_interface name="velocity"/>
+    </joint>
+    <!-- <joint name="left down wheel motor">
+      <state_interface name="position"/>
+      <command_interface name="velocity"/>
+    </joint> -->
+    <joint name="right up wheel motor">
+      <state_interface name="position"/>
+      <command_interface name="velocity"/>
+    </joint>
+    <!-- <joint name="right down wheel motor">
+      <state_interface name="position"/>
+      <command_interface name="velocity"/>
+    </joint> -->
+  </ros2_control>
+</robot>
