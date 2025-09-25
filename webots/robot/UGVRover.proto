@@ -30,12 +30,12 @@ PROTO UGVRover [
         }
         device [
           RotationalMotor {
-            name "left up wheel motor"
+            name "left_up_wheel_motor"
             maxVelocity 20
             maxTorque 10
           }
           PositionSensor {
-            name "left up wheel sensor"
+            name "left_up_wheel_sensor"
           }
         ]
         endPoint Solid {
@@ -75,6 +75,58 @@ PROTO UGVRover [
           }
         }
       }
+      DEF LEFT_DOWN_JOINT HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 0.0 1.0 0.0
+          anchor -0.085500 0.087260 -0.041212
+        }
+        device [
+          RotationalMotor {
+            name "left_down_wheel_motor"
+            maxVelocity 20
+            maxTorque 10
+          }
+          PositionSensor {
+            name "left_down_wheel_sensor"
+          }
+        ]
+        endPoint Solid {
+          translation -0.085500 0.087260 -0.041212
+          rotation 1.0 0.0 0.0 1.570800
+          children [
+            DEF LEFT_DOWN_WHEEL Pose {
+              rotation 1.0 0.0 0.0 1.570800
+              children [
+                Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.627451 0.627451 0.627451
+                    roughness 1.0
+                    metalness 0
+                  }
+                  geometry Mesh {
+                    url "meshes/left_down_wheel_link.stl"
+                  }
+                }
+              ]
+            }
+          ]
+          name "left_down_wheel"
+          boundingObject Pose {
+            rotation 1.0 0.0 0.0 0.0
+            children [
+              Cylinder {
+                radius 0.04
+                height 0.04
+              }
+            ]
+          }
+          physics Physics {
+            density -1
+            mass 0.207086
+            centerOfMass [ 0.0 0.0 0.0 ]
+          }
+        }
+      }
       DEF RIGHT_UP_JOINT HingeJoint {
         jointParameters HingeJointParameters {
           axis 0.0 1.0 0.0
@@ -82,12 +134,12 @@ PROTO UGVRover [
         }
         device [
           RotationalMotor {
-            name "right up wheel motor"
+            name "right_up_wheel_motor"
             maxVelocity 20
             maxTorque 10
           }
           PositionSensor {
-            name "right up wheel sensor"
+            name "right_up_wheel_sensor"
           }
         ]
         endPoint Solid {
@@ -127,58 +179,57 @@ PROTO UGVRover [
           }
         }
       }
-      DEF CASTER_JOINT BallJoint {
-        jointParameters BallJointParameters {
-          anchor -0.04 0.0 -0.065
+      DEF RIGHT_DOWN_JOINT HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 0.0 1.0 0.0
+          anchor -0.085500 -0.087260 -0.041212
         }
+        device [
+          RotationalMotor {
+            name "right_down_wheel_motor"
+            maxVelocity 20
+            maxTorque 10
+          }
+          PositionSensor {
+            name "right_down_wheel_sensor"
+          }
+        ]
         endPoint Solid {
-          translation -0.04 0.0 -0.065
+          translation -0.085500 -0.087260 -0.041212
+          rotation 1.0 0.0 0.0 1.570800
           children [
-            Shape {
-              appearance PBRAppearance {
-              }
-              geometry DEF CASTER_SPHERE Sphere {
-                radius 0.017
-                subdivision 2
-              }
+            DEF RIGHT_DOWN_WHEEL Pose {
+              rotation 1.0 0.0 0.0 1.570800
+              children [
+                Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.627451 0.627451 0.627451
+                    roughness 1.0
+                    metalness 0
+                  }
+                  geometry Mesh {
+                    url "meshes/right_down_wheel_link.stl"
+                  }
+                }
+              ]
             }
           ]
-          boundingObject USE CASTER_SPHERE
+          name "right_down_wheel"
+          boundingObject Pose {
+            rotation 1.0 0.0 0.0 0.0
+            children [
+              Cylinder {
+                radius 0.04
+                height 0.04
+              }
+            ]
+          }
           physics Physics {
+            density -1
+            mass 0.207086
+            centerOfMass [ 0.0 0.0 0.0 ]
           }
         }
-      }
-      DEF LEFT_DOWN_WHEEL Pose {
-        translation -0.085500 0.087260 -0.041212
-        rotation 1.0 0.0 0.0 0.0
-        children [
-          Shape {
-            appearance PBRAppearance {
-              baseColor 0.627451 0.627451 0.627451
-              roughness 1.0
-              metalness 0
-            }
-            geometry Mesh {
-              url "meshes/left_down_wheel_link.stl"
-            }
-          }
-        ]
-      }
-      DEF RIGHT_DOWN_WHEEL Pose {
-        translation -0.085500 -0.087260 -0.041212
-        rotation 1.0 0.0 0.0 0.0
-        children [
-          Shape {
-            appearance PBRAppearance {
-              baseColor 0.627451 0.627451 0.627451
-              roughness 1.0
-              metalness 0
-            }
-            geometry Mesh {
-              url "meshes/right_down_wheel_link.stl"
-            }
-          }
-        ]
       }
       DEF BODY Pose {
         translation 0.0 0.0 0.0
@@ -213,7 +264,7 @@ PROTO UGVRover [
             width 4208
             height 3120
             fieldOfView 1.4190
-            near 0.5
+            near 0.02
             far 12.0
           }
           RangeFinder {
@@ -221,7 +272,7 @@ PROTO UGVRover [
             width 640
             height 480
             fieldOfView 1.50
-            near 0.7
+            near 0.02
             minRange 0.7
             maxRange 12.0
           }
@@ -259,6 +310,144 @@ PROTO UGVRover [
         name "lidar"
         boundingObject USE LIDAR_MESH
         physics Physics {}
+      }
+      DEF ARM_BASE Solid {
+        translation -0.018892 0.0 0.04
+        children [
+          Shape {
+            appearance PBRAppearance {
+              baseColor 0.627451 0.627451 0.627451
+              roughness 1.0
+              metalness 0
+            }
+            geometry DEF ARM_BASE_MESH Mesh {
+              url "meshes/pt_base_link.stl"
+            }
+          }
+          DEF ARM_LINK1 HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0.0 0.0 -1.0
+              anchor 0.010151 0.0 0.048
+            }
+            device [
+              RotationalMotor {
+                name "arm_link1_joint"
+                minPosition -3.14
+                maxPosition 3.14
+                maxTorque 10
+              }
+              PositionSensor {
+                name "arm_link1_sensor"
+              }
+            ]
+            endPoint Solid {
+              translation 0.010151 0.0 0.048
+              children [
+                Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.627451 0.627451 0.627451
+                    roughness 1.0
+                    metalness 0
+                  }
+                  geometry DEF ARM_LINK1_MESH Mesh {
+                    url "meshes/pt_link1.stl"
+                  }
+                }
+                DEF ARM_LINK2 HingeJoint {
+                  jointParameters HingeJointParameters {
+                    axis 0.0 -1.0 0.0
+                    anchor 0.0 0.02 0.043003
+                  }
+                  device [
+                    RotationalMotor {
+                      name "arm_link2_joint"
+                      minPosition -0.5233333
+                      maxPosition 1.5707963
+                      maxTorque 10
+                    }
+                    PositionSensor {
+                      name "arm_link2_sensor"
+                    }
+                  ]
+                  endPoint Solid {
+                    translation 0.0 0.02 0.043003
+                    rotation 1.0 0.0 0.0 1.570800
+                    children [
+                      Shape {
+                        appearance PBRAppearance {
+                          baseColor 0.627451 0.627451 0.627451
+                          roughness 1.0
+                          metalness 0
+                        }
+                        geometry DEF ARM_LINK2_MESH Mesh {
+                          url "meshes/pt_link2.stl"
+                        }
+                      }
+                      DEF ARM_CAMERA Solid {
+                        translation 0.047686 -0.000569 0.020000
+                        rotation 0.707105 -0.000563 0.707108 3.140466
+                        children [
+                          Pose {
+                            rotation 0.577352 -0.577350 0.577350 2.094399
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.627451 0.627451 0.627451
+                                  roughness 1.0
+                                  metalness 0
+                                }
+                                geometry DEF ARM_CAMERA_MESH Mesh {
+                                  url "meshes/pt_camera_link.stl"
+                                }
+                              }
+                              Camera {
+                                name "imx335_camera"
+                                width 2592
+                                height 1944
+                                fieldOfView 1.50
+                                near 0.02
+                                far 12.0
+                              }
+                            ]
+                          }
+                        ]
+                        name "arm_camera"
+                        boundingObject Pose {
+                          rotation 0.577352 -0.577350 0.577350 2.094399
+                          children [
+                            USE ARM_CAMERA_MESH
+                          ]
+                        }
+                        physics Physics {}
+                      }
+                    ]
+                    name "arm_link2"
+                    boundingObject USE ARM_LINK2_MESH
+                    physics Physics {
+                      density -1
+                      mass 0.097050
+                      centerOfMass [ 0.021820 0.011959 0.02 ]
+                    }
+                  }
+                }
+              ]
+              name "arm_link1"
+              boundingObject USE ARM_LINK1_MESH
+              physics Physics {
+                density -1
+                mass 0.007109
+                centerOfMass [ -0.003381 0.0 0.017610 ]
+              }
+            }
+          }
+        ]
+        name "arm_base_link"
+        boundingObject USE ARM_BASE_MESH
+        physics Physics {
+          density -1
+          mass 0.109518
+          centerOfMass [ 0.001276 0.0 0.021516 ]
+        }
       }
       Accelerometer {
         translation 0.0 0.0 0.0

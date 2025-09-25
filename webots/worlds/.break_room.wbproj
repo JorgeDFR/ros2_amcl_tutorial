@@ -6,5 +6,6 @@ maximizedDockId: -1
 centralWidgetVisible: 1
 orthographicViewHeight: 1
 textFiles: -1
-renderingDevicePerspectives: UGVRover:oak_d_lite_camera_depth;0;0.895833;0;0
-renderingDevicePerspectives: UGVRover:oak_d_lite_camera_rgb;0;0.137821;0;0
+renderingDevicePerspectives: UGVRover:oak_d_lite_camera_depth;0;1;0;0
+renderingDevicePerspectives: UGVRover:oak_d_lite_camera_rgb;0;1;0;0
+renderingDevicePerspectives: UGVRover:imx335_camera;0;1;0;0

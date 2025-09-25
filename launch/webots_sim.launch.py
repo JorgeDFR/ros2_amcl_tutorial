@@ -67,7 +67,18 @@ def generate_launch_description():
     prefix=controller_manager_prefix,
     arguments=['joint_state_broadcaster'] + controller_manager_timeout,
   )
-  ros_control_spawners = [diffdrive_controller_spawner, joint_state_broadcaster_spawner]
+  arm_controller_spawner = Node(
+    package='controller_manager',
+    executable='spawner',
+    output='screen',
+    prefix=controller_manager_prefix,
+    arguments=['arm_controller'] + controller_manager_timeout,
+  )
+  ros_control_spawners = [
+    diffdrive_controller_spawner,
+    joint_state_broadcaster_spawner,
+    arm_controller_spawner,
+  ]
 
   # UGV Rover Driver Node
   robot_description_path = os.path.join(dirname, '../webots/robot', 'ugv_rover_webots.urdf')

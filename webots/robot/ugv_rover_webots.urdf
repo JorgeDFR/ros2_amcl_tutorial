@@ -30,6 +30,32 @@
       </ros>
     </device>
 
+    <device reference="arm_link1" type="RotationalMotor">
+      <ros>
+        <frameName>arm_link1</frameName>
+        <enabled>true</enabled>
+        <topicName>/arm_link1</topicName>
+      </ros>
+    </device>
+
+    <device reference="arm_link2" type="RotationalMotor">
+      <ros>
+        <frameName>arm_link2</frameName>
+        <enabled>true</enabled>
+        <topicName>/arm_link2</topicName>
+      </ros>
+    </device>
+
+    <device reference="imx335_camera" type="Camera">
+      <ros>
+        <frameName>arm_camera</frameName>
+        <enabled>true</enabled>
+        <updateRate>10</updateRate>
+        <topicName>/arm_camera</topicName>
+        <alwaysOn>false</alwaysOn>
+      </ros>
+    </device>
+
     <plugin type="webots_ros2_driver::Ros2IMU">
       <enabled>true</enabled>
       <updateRate>20</updateRate>
@@ -48,21 +74,34 @@
     <hardware>
       <plugin>webots_ros2_control::Ros2ControlSystem</plugin>
     </hardware>
-    <joint name="left up wheel motor">
+
+    <!-- Wheel motors -->
+    <joint name="left_up_wheel_motor">
       <state_interface name="position"/>
       <command_interface name="velocity"/>
     </joint>
-    <!-- <joint name="left down wheel motor">
-      <state_interface name="position"/>
-      <command_interface name="velocity"/>
-    </joint> -->
-    <joint name="right up wheel motor">
+    <joint name="left_down_wheel_motor">
       <state_interface name="position"/>
       <command_interface name="velocity"/>
     </joint>
-    <!-- <joint name="right down wheel motor">
+    <joint name="right_up_wheel_motor">
       <state_interface name="position"/>
       <command_interface name="velocity"/>
-    </joint> -->
+    </joint>
+    <joint name="right_down_wheel_motor">
+      <state_interface name="position"/>
+      <command_interface name="velocity"/>
+    </joint>
+
+    <!-- Arm joints -->
+    <joint name="arm_link1_joint">
+      <state_interface name="position"/>
+      <command_interface name="position"/>
+    </joint>
+    <joint name="arm_link2_joint">
+      <state_interface name="position"/>
+      <command_interface name="position"/>
+    </joint>
+
   </ros2_control>
 </robot>

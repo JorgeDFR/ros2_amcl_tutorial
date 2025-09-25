@@ -5,28 +5,30 @@ controller_manager:
     diffdrive_controller:
       type: diff_drive_controller/DiffDriveController
 
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
 diffdrive_controller:
   ros__parameters:
-    # left_wheel_names: ["left up wheel motor", "left down wheel motor"]
-    # right_wheel_names: ["right up wheel motor", "right down wheel motor"]
-
-    left_wheel_names: ["left up wheel motor"]
-    right_wheel_names: ["right up wheel motor"]
+    left_wheel_names: ["left_up_wheel_motor", "left_down_wheel_motor"]
+    right_wheel_names: ["right_up_wheel_motor", "right_down_wheel_motor"]
 
     wheel_separation: 0.174
+    wheels_per_side: 1  # actually 2, but both are controlled by 1 signal
     wheel_radius: 0.04
 
-    wheel_separation_multiplier: 1.0
+    wheel_separation_multiplier: 1.7
     left_wheel_radius_multiplier: 1.0
     right_wheel_radius_multiplier: 1.0
 
-    use_stamped_vel: false
     odom_frame_id: odom
     base_frame_id: base_link
     enable_odom_tf: true
+
+    use_stamped_vel: false
 
     publish_limited_velocity: true
 
@@ -35,3 +37,14 @@ diffdrive_controller:
 
     angular.z.has_velocity_limits: true
     angular.z.max_velocity: 0.5
+
+arm_controller:
+  ros__parameters:
+    joints:
+      - arm_link1_joint
+      - arm_link2_joint
+
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
