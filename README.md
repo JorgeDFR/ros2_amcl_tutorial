@@ -15,7 +15,7 @@ To simplify the setup process, this tutorial provides two options:
 1. **Pre-configured Virtual Machine (VM)**
 2. **Docker Container with docker compose**
 
-If you prefer to install everything directly on your own system, follow the instructions in [manual setup](/docs/setup.md).
+If you prefer installing everything directly on your system, or if you already have ROS 2 and Webots installed natively, follow the instructions in the [Manual Setup](/docs/setup.md) guide.
 
 ### Option 1: Using the Virtual Machine
 
@@ -110,13 +110,21 @@ The second window is **RViz**, the ROS visualization tool. RViz displays sensor 
 
 ### Controlling the Robot
 
-You can manually control the robot using the keyboard teleoperation node:
+You can manually control the robot in the Webots simulation using the keyboard teleoperation node. The command you use depends on the ROS 2 version you have installed:
 
-```bash
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
-```
+- **For ROS 2 Humble and older versions:** the teleoperation node uses the standard `Twist` message. Use the default teleop_twist_keyboard command.
 
-This will publish velocity commands to the robot in the Webots simulation allowing you to move the robot in the Webots simulation and test the AMCL localization in real-time.
+  ```bash
+  ros2 run teleop_twist_keyboard teleop_twist_keyboard
+  ```
+
+- **For ROS 2 Jazzy and newer versions:** some simulation packages have replaced the `Twist` message with `TwistStamped`. In this case, run the teleop_twist_keyboard node with the `--ros-args -p stamped:=true` parameter.
+
+  ```bash
+  ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -p stamped:=true
+  ```
+
+These commands will publish velocity commands to the robot in Webots, allowing you to move it and test AMCL localization in real-time.
 
 ## Main Tutorial Files
 
@@ -177,7 +185,7 @@ The ellipse and cone of the estimated pose made by AMCL are a visualization of t
 ## Challenges
 
 Now that you know how to run the simulation and interpret the results in RViz, it’s time to experiment.
-Each challenge below is independent — you can try them in any order.
+Each challenge below is independent, so you can try them in any order.
 
 ### 1. Initialize AMCL with a Different Pose
 
