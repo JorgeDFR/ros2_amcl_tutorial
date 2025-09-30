@@ -4,18 +4,21 @@ from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
+from ament_index_python.packages import get_package_share_directory
+
 def generate_launch_description():
-  dirname, _ = os.path.split(os.path.realpath(__file__))
-  params = os.path.join(dirname, 'config.yaml')
-  rviz_file = os.path.join(dirname, 'visualization.rviz')
-  world_file = os.path.join(dirname, '../webots/worlds/complete_apartment.wbt')
-  map_file = os.path.join(dirname, '../webots/maps/complete_apartment.yaml')
+  pkg_share = get_package_share_directory('ros2_amcl_tutorial')
+
+  params = os.path.join(pkg_share, 'launch', 'config.yaml')
+  rviz_file = os.path.join(pkg_share, 'launch', 'visualization.rviz')
+  world_file = os.path.join(pkg_share, 'webots/worlds', 'complete_apartment.wbt')
+  map_file = os.path.join(pkg_share, 'webots/maps', 'complete_apartment.yaml')
 
   ld = LaunchDescription()
 
   # Webots Simulator
   webots_simulator = IncludeLaunchDescription(
-    PythonLaunchDescriptionSource(os.path.join(dirname, 'webots_sim.launch.py')),
+    PythonLaunchDescriptionSource(os.path.join(pkg_share, 'launch', 'webots_sim.launch.py')),
     launch_arguments={'world': world_file}.items()
   )
   ld.add_action(webots_simulator)

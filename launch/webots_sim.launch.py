@@ -11,17 +11,20 @@ from webots_ros2_driver.webots_launcher import WebotsLauncher
 from webots_ros2_driver.webots_controller import WebotsController
 from webots_ros2_driver.wait_for_controller_connection import WaitForControllerConnection
 
+from ament_index_python.packages import get_package_share_directory
+
 def generate_launch_description():
-  dirname, _ = os.path.split(os.path.realpath(__file__))
+  pkg_share = get_package_share_directory('ros2_amcl_tutorial')
 
   world = LaunchConfiguration('world',
-    default=os.path.join(dirname, '../webots/worlds/complete_apartment.wbt'))
+    default=os.path.join(pkg_share, 'webots/worlds/complete_apartment.wbt'))
   mode = LaunchConfiguration('mode', default='realtime')
   use_sim_time = LaunchConfiguration('use_sim_time', default=True)
 
   ld = LaunchDescription()
 
   # Launch Webots with supervisor enabled
+  os.environ['WEBOTS_EXTRA_PROJECT_PATH'] = pkg_share
   webots = WebotsLauncher(
     world=PathSubstitution(world),
     mode=mode,
@@ -82,8 +85,8 @@ def generate_launch_description():
   ]
 
   # UGV Rover Driver Node
-  robot_description_path = os.path.join(dirname, '../webots/robot', 'ugv_rover_webots.urdf')
-  ros2_control_params = os.path.join(dirname, '../webots/robot', 'ros2control.yml')
+  robot_description_path = os.path.join(pkg_share, 'webots/robot', 'ugv_rover_webots.urdf')
+  ros2_control_params = os.path.join(pkg_share, 'webots/robot', 'ros2control.yml')
 
   use_twist_stamped = 'ROS_DISTRO' in os.environ and (os.environ['ROS_DISTRO'] in ['rolling', 'jazzy', 'kilted'])
   if use_twist_stamped:

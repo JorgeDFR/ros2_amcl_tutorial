@@ -1,22 +1,20 @@
 services:
-  ros2_webots:
-    build:
-      context: .
-      dockerfile: Dockerfile.humble
-    image: ros2_webots:humble
-    container_name: ros2_amcl_tutorial
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - /dev/dri:/dev/dri
-      - ../launch:/home/user/ros2_amcl_tutorial/launch
-      - ../webots:/home/user/ros2_amcl_tutorial/webots
-    environment:
-      - color_prompt=no
-      - DISPLAY=${DISPLAY}
-    network_mode: host
-    tty: true
-    stdin_open: true
+  # ros2_webots:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.humble
+  #   image: ros2_webots:humble
+  #   container_name: ros2_amcl_tutorial
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - /tmp/.X11-unix:/tmp/.X11-unix
+  #     - /dev/dri:/dev/dri
+  #   environment:
+  #     - color_prompt=no
+  #     - DISPLAY=${DISPLAY}
+  #   network_mode: host
+  #   tty: true
+  #   stdin_open: true
 
   # ros2_webots_nvidia:
   #   build:
@@ -28,8 +26,6 @@ services:
   #     - /etc/localtime:/etc/localtime:ro
   #     - /tmp/.X11-unix:/tmp/.X11-unix
   #     - /dev/dri:/dev/dri
-  #     - ../launch:/home/user/ros2_amcl_tutorial/launch
-  #     - ../webots:/home/user/ros2_amcl_tutorial/webots
   #   environment:
   #     - color_prompt=no
   #     - DISPLAY=${DISPLAY}
@@ -39,3 +35,24 @@ services:
   #   tty: true
   #   stdin_open: true
   #   runtime: nvidia
+
+  ros2_webots_nvidia:
+    build:
+      context: .
+      dockerfile: Dockerfile.humble
+    image: ros2_webots:humble
+    container_name: ros2_amcl_tutorial
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /dev/dri:/dev/dri
+      - ../:/home/user/ros2_ws/src/ros2_amcl_tutorial
+    environment:
+      - color_prompt=no
+      - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    network_mode: host
+    tty: true
+    stdin_open: true
+    runtime: nvidia

@@ -2,7 +2,7 @@
 
 This guide explains how to manually set up your environment for the AMCL tutorial on your own machine.
 
-If you already have ROS 2 and Webots installed, you only need to install some additional [ROS 2 packages](#ros-2-packages) and clone this [Git repository](#clone-the-tutorial-repository).
+If you already have ROS 2 and Webots installed, you only need to install some additional [ROS 2 packages](#ros-2-packages) and clone this [Git repository](#clone-and-build-the-tutorial-repository).
 
 If not you also need to install both [ROS 2](#ros-2-installation) and the [Webots simulator](#webots-simulator).
 
@@ -71,10 +71,38 @@ sudo apt install ros-<ros2-distro>-nav2-rviz-plugins
 sudo apt install ros-<ros2-distro>-teleop-twist-keyboard
 ```
 
-## Clone the Tutorial Repository
+## Clone and Build the Tutorial Repository
 
-Finally, clone this repository to access the launch files, configuration files, and simulation worlds used in the tutorial:
+In ROS 2, all your code and simulation files live inside a **workspace**.
+A workspace is just a folder where you keep your packages, and it must have a `src` subfolder where the source code goes.
 
+Follow these steps to download the tutorial package and build it:
+
+1. Create a ROS 2 workspace.
 ```bash
+mkdir -p ~/ros2_ws/src
+```
+
+2. Download (clone) this tutorial package into the workspace.
+```bash
+cd ~/ros2_ws/src
 git clone https://github.com/JorgeDFR/ros2_amcl_tutorial.git
+```
+
+3. Load your ROS 2 installation into the current terminal (replace `<ros2-distro>` with your distribution name, e.g. `humble`, `jazzy`, etc.)
+```bash
+source /opt/ros/<ros2-distro>/setup.bash
+```
+
+4. Build the workspace using colcon (the ROS 2 build tool).
+The command `--symlink-install` allows you to edit config files without rebuilding every time.
+```bash
+cd ~/ros2_ws
+colcon build --symlink-install
+```
+
+5. Add the workspace overlay to your shell startup. This way, every new terminal knows about the packages you just built.
+```bash
+echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc
+source ~/.bashrc
 ```

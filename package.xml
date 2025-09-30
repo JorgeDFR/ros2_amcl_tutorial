@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+  schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<package format="3">
+  <name>ros2_amcl_tutorial</name>
+
+  <version>0.1.0</version>
+
+  <description>TODO: Package description</description>
+
+  <maintainer email="jorge.d.ribeiro@inesctec.pt">Jorge Diogo Ribeiro</maintainer>
+
+  <license>GNU General Public License version 3</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>webots_ros2_driver</depend>
+  <depend>nav2_map_server</depend>
+  <depend>nav2_amcl</depend>
+  <depend>nav2_lifecycle_manager</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>controller_manager</depend>
+  <depend>tf2_ros</depend>
+  <depend>rviz2</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

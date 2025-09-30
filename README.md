@@ -28,10 +28,12 @@ Once downloaded, you can import the template into your preferred hypervisor (e.g
 - **Username:** `user`
 - **Password:** `1234`
 
-> ⚠️ **Important:** To ensure you have the latest tutorial files, run the following inside the VM:
+> ⚠️ **Important:** To ensure you have the latest tutorial files, run the following inside the VM and then compile the code:
 ```bash
-cd ~/ros2_amcl_tutorial
+cd ~/ros2_ws/src/ros2_amcl_tutorial
 git pull
+cd ~/ros2_ws
+colcon build
 ```
 
 ### Option 2: Using the Docker Container
@@ -81,8 +83,7 @@ docker exec -it ros2_amcl_tutorial bash
 After completing the setup you can start the simulation by navigating to the `launch` files directory and launching the tutorial:
 
 ```bash
-cd ros2_amcl_tutorial/launch
-ros2 launch run.launch.py
+ros2 launch ros2_amcl_tutorial run.launch.py
 ```
 
 If everything is set up correctly, two main windows should appear on your screen:
