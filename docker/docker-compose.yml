@@ -2,7 +2,7 @@ services:
   ros2_webots:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.humble
     image: ros2_webots:humble
     container_name: ros2_amcl_tutorial
     volumes:
@@ -21,7 +21,7 @@ services:
   # ros2_webots_nvidia:
   #   build:
   #     context: .
-  #     dockerfile: Dockerfile
+  #     dockerfile: Dockerfile.humble
   #   image: ros2_webots:humble
   #   container_name: ros2_amcl_tutorial
   #   volumes:

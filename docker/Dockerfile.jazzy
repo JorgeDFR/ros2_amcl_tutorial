@@ -1,8 +1,8 @@
-FROM osrf/ros:humble-desktop
+FROM osrf/ros:jazzy-desktop
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
-ENV ROS_DISTRO=humble
+ENV ROS_DISTRO=jazzy
 ENV USER=user
 ENV HOME=/home/$USER
 
@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && \
   wget -O /tmp/webots.deb https://github.com/cyberbotics/webots/releases/download/R2025a/webots_2025a_amd64.deb && \
   dpkg -i /tmp/webots.deb || apt-get install -f -y && \
-  apt-get install -y ros-humble-webots-ros2 && \
+  apt-get install -y ros-$ROS_DISTRO-webots-ros2 && \
   rm -f /tmp/webots.deb && \
   rm -rf /var/lib/apt/lists/*
 
@@ -33,9 +33,9 @@ ENV WEBOTS_HOME=/usr/local/webots
 
 # ROS packages
 RUN apt-get update && apt-get install -y \
-  ros-humble-nav2-map-server \
-  ros-humble-nav2-amcl \
-  ros-humble-nav2-rviz-plugins \
+  ros-$ROS_DISTRO-nav2-map-server \
+  ros-$ROS_DISTRO-nav2-amcl \
+  ros-$ROS_DISTRO-nav2-rviz-plugins \
   && rm -rf /var/lib/apt/lists/*
 
 # Create user and home directory
@@ -45,7 +45,7 @@ RUN useradd -m -d $HOME -s /bin/bash $USER && \
   echo "$USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> $HOME/.bashrc && \
-    echo "export ROS_LOCALHOST_ONLY=1" >> $HOME/.bashrc
+    echo "export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST" >> $HOME/.bashrc
 
 # Initialize rosdep
 USER root

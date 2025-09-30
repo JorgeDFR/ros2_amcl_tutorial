@@ -51,14 +51,15 @@ def generate_launch_description():
   ld.add_action(footprint_publisher)
 
   # ROS control spawners
-  controller_manager_timeout = ['--controller-manager-timeout', '50']
   controller_manager_prefix = 'python.exe' if os.name == 'nt' else ''
+  controller_manager_timeout = ['--controller-manager-timeout', '50']
+
   diffdrive_controller_spawner = Node(
     package='controller_manager',
     executable='spawner',
     output='screen',
     prefix=controller_manager_prefix,
-    arguments=['diffdrive_controller'] + controller_manager_timeout,
+    arguments=['diffdrive_controller'] + controller_manager_timeout
   )
   joint_state_broadcaster_spawner = Node(
     package='controller_manager',
@@ -83,7 +84,13 @@ def generate_launch_description():
   # UGV Rover Driver Node
   robot_description_path = os.path.join(dirname, '../webots/robot', 'ugv_rover_webots.urdf')
   ros2_control_params = os.path.join(dirname, '../webots/robot', 'ros2control.yml')
-  mappings = [('/diffdrive_controller/cmd_vel_unstamped', '/cmd_vel'), ('/diffdrive_controller/odom', '/odom')]
+
+  use_twist_stamped = 'ROS_DISTRO' in os.environ and (os.environ['ROS_DISTRO'] in ['rolling', 'jazzy', 'kilted'])
+  if use_twist_stamped:
+    mappings = [('/diffdrive_controller/cmd_vel', '/cmd_vel'), ('/diffdrive_controller/odom', '/odom')]
+  else:
+    mappings = [('/diffdrive_controller/cmd_vel_unstamped', '/cmd_vel'), ('/diffdrive_controller/odom', '/odom')]
+
   ugv_rover_driver = WebotsController(
     robot_name='UGVRover',
     parameters=[

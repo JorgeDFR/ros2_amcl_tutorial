@@ -116,7 +116,7 @@ You can manually control the robot using the keyboard teleoperation node:
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
-This will publish velocity commands to the robot in the Webots simulation.  allowing you to move the robot in the Webots simulation and test the AMCL localization in real-time.
+This will publish velocity commands to the robot in the Webots simulation allowing you to move the robot in the Webots simulation and test the AMCL localization in real-time.
 
 ## Main Tutorial Files
 
