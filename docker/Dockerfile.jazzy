@@ -48,8 +48,9 @@ RUN useradd -m -d $HOME -s /bin/bash $USER && \
 USER $USER
 RUN mkdir -p $HOME/ros2_ws/src && \
   echo '{ "build": { "symlink-install": true } }' >> $HOME/ros2_ws/colcon_defaults.yaml && \
-  cd $HOME/ros2_ws && \
+  cd $HOME/ros2_ws/src && \
   git clone https://github.com/JorgeDFR/ros2_amcl_tutorial.git && \
+  cd $HOME/ros2_ws && \
   bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && colcon build"
 
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> $HOME/.bashrc && \
