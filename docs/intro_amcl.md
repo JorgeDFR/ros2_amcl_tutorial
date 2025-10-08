@@ -102,9 +102,9 @@ $$
 | Term | Description | Formula |
 |------|--------------|----------|
 | $p_{\text{hit}}$ | Gaussian noise around expected distance | $z_{\text{hit}} \cdot \exp\left(-\frac{(z - z_{\text{expected}})^2}{2\sigma_{\text{hit}}^2}\right)$ |
-| $p_{\text{short}}$ | Unexpected short readings | $\begin{cases} z_{\text{short}} \cdot \lambda_{\text{short}} \exp(-\lambda_{\text{short}} z), & z < 0 \\ 0, & z \ge 0 \end{cases}$ |
-| $p_{\text{max}}$ | Sensor reports max range | $\begin{cases} z_{\text{max}}, & z = z_{\text{max}} \\ 0, & \text{otherwise} \end{cases}$ |
-| $p_{\text{rand}}$ | Random uniform noise | $\begin{cases} z_{\text{rand}} / z_{\text{max}}, & z < z_{\text{max}} \\ 0, & \text{otherwise} \end{cases}$ |
+| $p_{\text{short}}$ | Unexpected short readings $(z < 0)$ | $z_{\text{short}} \cdot \lambda_{\text{short}} \exp(-\lambda_{\text{short}} z)$ |
+| $p_{\text{max}}$ | Sensor reports max range $(z = z_{\text{max}})$ | $z_{\text{max}}$ |
+| $p_{\text{rand}}$ | Random uniform noise $(z < z_{\text{max}})$ | $z_{\text{rand}} / z_{\text{max}}$ |
 
 > **Note:** In `nav2_amcl`, beam probabilities are combined using an ad-hoc scheme $ p \mathrel{+}= p_z^3 $ instead of strict multiplication.
 
