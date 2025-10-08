@@ -20,7 +20,7 @@ If you prefer installing everything directly on your system, or if you already h
 ### Option 1: Using the Virtual Machine
 
 A ready-to-use VM template is available for download:
-👉 [Download VM template](https://example.com/error) <!-- TODO: Replace with actual working link -->
+👉 [Download VM template](https://drive.google.com/file/d/1etS2gk-ls_ilCzaUH-E5hPRnMLqPmKCq/view?usp=drive_link)
 
 Once downloaded, you can import the template into your preferred hypervisor (e.g., [VirtualBox](https://www.virtualbox.org/)).
 
@@ -221,6 +221,67 @@ alpha4: 0.2
 alpha5: 0.2
 ```
 
-### 3. TODO
+### 3. Experiment with Sensor Models
 
-TODO
+- In [config.yaml](launch/config.yaml), locate the sensor model parameters.
+- Change `laser_model_type` and restart the simulation. Observe how the particle cloud behaves:
+  - `beam`: each laser beam individually (accurate but slower).
+  - `likelihood_field`: uses a distance field (ignores max-range readings).
+  - `likelihood_field_prob`: like likelihood field, with optional beam skipping for robustness in dynamic areas.
+
+- For `likelihood_field_prob`, try enabling/disabling beam skipping and adjusting thresholds to see the effect on dynamic obstacles.
+
+- Optionally, tweak `sigma_hit` and `z_rand`:
+  - Lower `sigma_hit`: more confident but less tolerant to noise.
+  - Higher `z_rand`: more tolerant to unexpected readings but particle cloud may spread more.
+
+> 🔗 See [Sensor Models in AMCL](docs/intro_amcl.md#sensor-models-in-amcl) for formulas and detailed explanations.
+
+```yaml
+laser_model_type: likelihood_field # beam | likelihood_field | likelihood_field_prob
+max_beams: 60
+laser_min_range: -1.0
+laser_max_range: -1.0
+laser_likelihood_max_dist: 2.0
+
+z_hit: 0.5
+z_max: 0.05
+z_rand: 0.5
+z_short: 0.05
+sigma_hit: 0.2
+lambda_short: 0.1
+
+do_beamskip: false # used only on the "likelihood_field_prob"
+beam_skip_distance: 0.5
+beam_skip_threshold: 0.3
+beam_skip_error_threshold: 0.9
+```
+
+### 4. Experiment with Core Parameters
+
+- In [config.yaml](launch/config.yaml), locate the **core parameters** that control particle filter behavior:
+  - `min_particles`, `max_particles`: bounds on the number of particles.
+  - `pf_err`, `pf_z`: statistical thresholds for adaptive particle count.
+  - `update_min_d`, `update_min_a`: minimum translation (m) and rotation (rad) for updates.
+  - `resample_interval`: how often low-weight particles are resampled.
+
+- Modify these parameters and restart the simulation. Observe how the particle cloud responds:
+  - Increasing `min_particles`: more robust localization but higher computation.
+  - Decreasing `max_particles`: faster computation but less robustness.
+  - Adjusting `pf_err` and `pf_z`: changes how aggressively AMCL adapts particle count.
+  - Changing `update_min_d` or `update_min_a`: affects how often the filter updates with new measurements.
+  - Changing `resample_interval`: influences the frequency of resampling low-weight particles.
+
+- Watch the particle cloud in RViz to see:
+  - How quickly the filter converges.
+  - How well it recovers from ambiguous areas or after being “lost.”
+
+```yaml
+min_particles: 500
+max_particles: 2000
+pf_err: 0.05
+pf_z: 2.33
+update_min_d: 0.1
+update_min_a: 0.1
+resample_interval: 1
+```
