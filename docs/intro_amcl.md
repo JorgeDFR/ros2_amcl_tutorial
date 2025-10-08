@@ -22,7 +22,7 @@ Instead of assuming a single "best guess" for the robot’s position, AMCL repre
 
 The behavior of AMCL depends strongly on its configuration parameters.
 They can be grouped into three main categories, reflecting the stages of the localization process: **motion prediction**, **sensor correction**, and **filter adaptivity/resampling**.
-The following parameters are those used in the **Nav2 AMCL implementation**, but very similar sets exist in other AMCL implementations.
+The following parameters are those used in the [`nav2_amcl`](https://github.com/ros-navigation/navigation2/tree/main/nav2_amcl) implementation, but very similar sets exist in other AMCL implementations.
 
 ### 1. Odometry / Motion Model (Prediction Step)
 
@@ -34,7 +34,7 @@ Therefore, these parameters ensure that the particles evolve realistically given
   Robots can be **holonomic** (able to move in any direction, e.g., omnidirectional robots with mecanum wheels) or **non-holonomic** (constrained to certain motions, e.g., differential-drive robots that cannot move sideways).
   The motion model must reflect these constraints, otherwise the particle set would diverge from what is physically possible for the robot.
 
-- **In Nav2 AMCL:**
+- **In [`nav2_amcl`](https://github.com/ros-navigation/navigation2/tree/main/nav2_amcl):**
   - `robot_model_type` selects whether the robot is modeled as differential drive or omnidirectional.
   - `alpha1`–`alpha5` tune how uncertainty (noise) is applied to translations and rotations.
     They define how wide the “cloud” of particles spreads during motion.
@@ -49,7 +49,7 @@ Particles that “see” the world in a way consistent with the real scan gain h
   If the sensor model is too strict, the robot may get lost when reality doesn’t match the map perfectly.
   If it’s too loose, localization becomes vague.
 
-- **In Nav2 AMCL:**
+- **In [`nav2_amcl`](https://github.com/ros-navigation/navigation2/tree/main/nav2_amcl):**
   - `laser_model_type` chooses the mathematical model (`beam`, `likelihood_field`, or `likelihood_field_prob`).
   - Parameters such as `z_hit`, `z_rand`, `z_max`, and `z_short` define how much weight is given to “good matches,” random noise, max-range readings, or unexpected short readings.
   - `sigma_hit` and `lambda_short` tune how tolerant the filter is to noise.
@@ -66,7 +66,7 @@ The filter parameters determine **how many particles** are maintained, **when to
   - With **too many particles**, localization is robust but computationally expensive.
   - Adaptivity allows the filter to use many particles when uncertain, and fewer when confident.
 
-- **In Nav2 AMCL:**
+- **In [`nav2_amcl`](https://github.com/ros-navigation/navigation2/tree/main/nav2_amcl):**
   - `min_particles` and `max_particles` bound the adaptive range.
   - `update_min_d` and `update_min_a` control how often updates happen (based on robot movement).
   - `resample_interval` defines how often low-weight particles are discarded and high-weight ones duplicated.
@@ -83,7 +83,7 @@ The filter parameters determine **how many particles** are maintained, **when to
 ## Sensor Models in AMCL
 
 The **sensor model** defines how likely a particle’s predicted laser measurements are, given the map.
-In Nav2 AMCL, three sensor models are available:
+In [`nav2_amcl`](https://github.com/ros-navigation/navigation2/tree/main/nav2_amcl), three sensor models are available:
 
 | Model Type | Description | Typical Use |
 |-------------|--------------|--------------|
@@ -93,7 +93,7 @@ In Nav2 AMCL, three sensor models are available:
 
 ### 1. Beam Model (`beam`)
 
-The **beam model** calculates the probability of each laser measurement $ z $ given the particle pose $ x $ and map $ m $.
+The **beam model** calculates the probability of each laser measurement $z$ given the particle pose $x$ and map $m$.
 
 $$
 p(z | x, m) = p_{\text{hit}} + p_{\text{short}} + p_{\text{max}} + p_{\text{rand}}
@@ -106,7 +106,7 @@ $$
 | $p_{\text{max}}$ | Sensor reports max range $(z = z_{\text{max}})$ | $z_{\text{max}}$ |
 | $p_{\text{rand}}$ | Random uniform noise $(z < z_{\text{max}})$ | $z_{\text{rand}} / z_{\text{max}}$ |
 
-> **Note:** In `nav2_amcl`, beam probabilities are combined using an ad-hoc scheme $ p \mathrel{+}= p_z^3 $ instead of strict multiplication.
+> **Note:** In `nav2_amcl`, beam probabilities are combined using an ad-hoc scheme $p \mathrel{+}= p_z^3$ instead of strict multiplication.
 
 
 ### 2. Likelihood Field Model (`likelihood_field`)
@@ -117,9 +117,9 @@ $$
 p(z | x, m) = z_{\text{hit}} \cdot \exp\left(-\frac{d^2}{2\sigma_{\text{hit}}^2}\right) + z_{\text{rand}} \cdot \frac{1}{z_{\text{max}}}
 $$
 
-Where $ d $ is the distance from the laser endpoint to the nearest obstacle.
+Where $d$ is the distance from the laser endpoint to the nearest obstacle.
 
-> **Note:** Beams are combined using the same $ p_z^3 $ ad-hoc method in the beam model.
+> **Note:** Beams are combined using the same $p_z^3$ ad-hoc method in the beam model.
 
 
 ### 3. Likelihood Field Probabilistic Model (`likelihood_field_prob`)
