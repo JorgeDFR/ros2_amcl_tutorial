@@ -261,8 +261,8 @@ PROTO UGVRover [
           }
           Camera {
             name "oak_d_lite_camera_rgb"
-            width 4208
-            height 3120
+            width 640
+            height 480
             fieldOfView 1.4190
             near 0.02
             far 12.0
@@ -273,7 +273,7 @@ PROTO UGVRover [
             height 480
             fieldOfView 1.50
             near 0.02
-            minRange 0.7
+            minRange 0.02
             maxRange 12.0
           }
         ]

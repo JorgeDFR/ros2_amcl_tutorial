@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # Environments
-.env
+#.env
 .envrc
 .venv
 env/
